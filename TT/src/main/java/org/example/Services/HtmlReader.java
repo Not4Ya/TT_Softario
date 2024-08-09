@@ -10,7 +10,6 @@ import java.util.Map;
 
 public class HtmlReader implements IReader {
 
-
     @Override
     public Map<String, String> read(String filePath) {
         Map<String, String> map = new HashMap<>();
@@ -25,7 +24,7 @@ public class HtmlReader implements IReader {
                     continue;
                 }
                 if (line.isEmpty()){
-                    // Это условие нужно чтобы не создавались пары, состоящие только из ключей
+                    // Это условие нужно, чтобы не создавались пары, состоящие только из ключей
                     if (!resultStringBuilder.isEmpty()){
                         map.put(url, resultStringBuilder.toString());
                         resultStringBuilder.delete(0, resultStringBuilder.length());
