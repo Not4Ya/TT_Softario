@@ -23,12 +23,18 @@ public class HtmlReader implements IReader {
                     url = line.substring(2);
                     continue;
                 }
-                if (line.isEmpty()){
+//                if (line.isEmpty()){
+//                    // Это условие нужно, чтобы не создавались пары, состоящие только из ключей
+//                    if (!resultStringBuilder.isEmpty()){
+//                        map.put(url, resultStringBuilder.toString());
+//                        resultStringBuilder.delete(0, resultStringBuilder.length());
+//                    }
+//                    continue;
+//                }
+                if (line.isEmpty() && !resultStringBuilder.isEmpty()){
                     // Это условие нужно, чтобы не создавались пары, состоящие только из ключей
-                    if (!resultStringBuilder.isEmpty()){
-                        map.put(url, resultStringBuilder.toString());
-                        resultStringBuilder.delete(0, resultStringBuilder.length());
-                    }
+                    map.put(url, resultStringBuilder.toString());
+                    resultStringBuilder.delete(0, resultStringBuilder.length());
                     continue;
                 }
                 resultStringBuilder.append(line).append("\n");

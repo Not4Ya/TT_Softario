@@ -11,15 +11,7 @@ import java.util.Map;
 
 public class Main {
 
-    /**
-     * PreviousPages: 1 2 3 6 7 8 - появились 4 5
-     * CurrentPages:  4 5 6 7 8   - изчезнули 1 2 3
-     * Edited pages:  7 8
-     * Common page:   6
-     * */
-
     public static void main(String[] args) {
-
 
         IReader reader = new HtmlReader();
         String previousPagesFilePath = "HtmlPages/PreviousPages";
@@ -35,7 +27,5 @@ public class Main {
 
         ConsoleWriter writer = new ConsoleWriter();
         writer.write(disappearedPages, appearedPages, editedPages);
-
-
     }
 }
