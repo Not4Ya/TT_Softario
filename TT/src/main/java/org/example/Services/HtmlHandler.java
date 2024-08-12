@@ -1,22 +1,29 @@
 package org.example.Services;
 
 import org.example.Interfaces.IHtmlHandler;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 public class HtmlHandler implements IHtmlHandler {
-    public List<String> findDisappearedPages(Map<String, String> map1, Map<String, String> map2){
-        return findAppearedPages(map2, map1);
+    Map<String, String> previousPages = null;
+    Map<String, String> currentPages = null;
+
+    public HtmlHandler(Map<String, String> previousPages, Map<String, String> currentPages) {
+        this.previousPages = previousPages;
+        this.currentPages = currentPages;
     }
 
-    public List<String> findAppearedPages(Map<String, String> prevPages, Map<String, String> curPages){
+    public List<String> findDisappearedPages(){
+        return findAppearedPages();
+    }
+
+    public List<String> findAppearedPages(){
         List<String> foundPages = new ArrayList<>();
 
-        for (String prevUrl : prevPages.keySet()){
+        for (String prevUrl : previousPages.keySet()){
             boolean found = false;
-            for (String curUrl : curPages.keySet()){
+            for (String curUrl : currentPages.keySet()){
                 if (prevUrl.equals(curUrl)){
                     found = true;
                     break;
@@ -30,16 +37,15 @@ public class HtmlHandler implements IHtmlHandler {
         return foundPages;
     }
 
-    public List<String> findEditedPages(Map<String, String> prevPages, Map<String, String> curPages){
+    public List<String> findEditedPages(){
         List<String> foundPages = new ArrayList<>();
-        for(String prevUrl : prevPages.keySet()){
-            for (String curUrl : curPages.keySet()){
-                if (prevUrl.equals(curUrl) && !prevPages.get(prevUrl).equals(curPages.get(curUrl))){
+        for(String prevUrl : currentPages.keySet()){
+            for (String curUrl : previousPages.keySet()){
+                if (prevUrl.equals(curUrl) && !currentPages.get(prevUrl).equals(previousPages.get(curUrl))){
                     foundPages.add(prevUrl);
                 }
             }
         }
         return foundPages;
     }
-
 }
